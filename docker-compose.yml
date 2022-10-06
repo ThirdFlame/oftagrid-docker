@@ -3,7 +3,7 @@ volumes:
 
 services:
     rocketchat:
-        image: oftagrid-server
+        image: thirdflame/oftagrid-server-pi
         # image: registry.rocket.chat/rocketchat/rocket.chat:${RELEASE:-latest}
         restart: on-failure
         labels:
@@ -31,16 +31,23 @@ services:
             - '${BIND_IP:-0.0.0.0}:${HOST_PORT:-3000}:${PORT:-3000}'
 
     mongodb:
-        image: docker.io/bitnami/mongodb:${MONGODB_VERSION:-4.4}
+        # image: docker.io/bitnami/mongodb:${MONGODB_VERSION:-4.4}
+        # image: mongo
+        # restart: on-failure
+        # volumes:
+        #     - mongodb_data:/bitnami/mongodb
+        # environment:
+        #     MONGODB_REPLICA_SET_MODE: primary
+        #     MONGODB_REPLICA_SET_NAME: ${MONGODB_REPLICA_SET_NAME:-rs0}
+        #     MONGODB_PORT_NUMBER: ${MONGODB_PORT_NUMBER:-27017}
+        #     MONGODB_INITIAL_PRIMARY_HOST: ${MONGODB_INITIAL_PRIMARY_HOST:-mongodb}
+        #     MONGODB_INITIAL_PRIMARY_PORT_NUMBER: ${MONGODB_INITIAL_PRIMARY_PORT_NUMBER:-27017}
+        #     MONGODB_ADVERTISED_HOSTNAME: ${MONGODB_ADVERTISED_HOSTNAME:-mongodb}
+        #     MONGODB_ENABLE_JOURNAL: ${MONGODB_ENABLE_JOURNAL:-true}
+        #     ALLOW_EMPTY_PASSWORD: ${ALLOW_EMPTY_PASSWORD:-yes}
+
+        image: mongo:4.4
         restart: on-failure
-        volumes:
-            - mongodb_data:/bitnami/mongodb
         environment:
-            MONGODB_REPLICA_SET_MODE: primary
-            MONGODB_REPLICA_SET_NAME: ${MONGODB_REPLICA_SET_NAME:-rs0}
-            MONGODB_PORT_NUMBER: ${MONGODB_PORT_NUMBER:-27017}
-            MONGODB_INITIAL_PRIMARY_HOST: ${MONGODB_INITIAL_PRIMARY_HOST:-mongodb}
-            MONGODB_INITIAL_PRIMARY_PORT_NUMBER: ${MONGODB_INITIAL_PRIMARY_PORT_NUMBER:-27017}
-            MONGODB_ADVERTISED_HOSTNAME: ${MONGODB_ADVERTISED_HOSTNAME:-mongodb}
-            MONGODB_ENABLE_JOURNAL: ${MONGODB_ENABLE_JOURNAL:-true}
-            ALLOW_EMPTY_PASSWORD: ${ALLOW_EMPTY_PASSWORD:-yes}
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: 1234
