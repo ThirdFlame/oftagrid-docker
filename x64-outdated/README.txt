@@ -4,7 +4,7 @@ From the oftagrid-server source code:
 yarn build:ci --api="http://127.0.0.1:9080" -- --directory dist
 cp apps/meteor/.docker/Dockerfile apps/meteor/dist
 cd apps/meteor/dist
-docker build -t oftagrid-server . OR docker buildx build --platform linux/arm64/v8 -t oftagrid-server-pi .
+docker build -t oftagrid-server . OR docker buildx build --platform linux/arm64/v8 -t thirdflame/oftagrid-server-pi .
 
 Push the docker image to Docker Hub:
 docker push thirdflame/oftagrid-server
